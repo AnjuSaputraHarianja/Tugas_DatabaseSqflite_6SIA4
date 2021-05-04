@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter penyimpanan data',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Data Peminjam Buku'),
+        ),
+        body: Peminjam(),
+      ),
+    );
+  }
+}
+
+class DataPeminjam{
+  String tgllahir;
+  String nama;
+  String alamat;
+  String jbuku;
+  String tglpeminjam;
+  
+  DataPeminjam({this.tgllahir, this.nama, this.alamat, this.jbuku, this.tglpeminjam});
+  
+}
+
+// class Pinjam
+class Peminjam extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Peminjam> {
+  //deklarasi variabel
+  final txtnamapeminjam = TextEditingController();
+  final txttgllahir = TextEditingController();
+  final txtjbuku = TextEditingController();
+  final txtalamat = TextEditingController();
+  final txttglpeminjam = TextEditingController();
+  
+
+  List<Widget> data = [];
+
+  onTambah() {
+    setState(() {
+       data.add(ListTile(leading: Text(txtnamapeminjam.text)));
+       data.add(ListTile(leading: Text(txttgllahir.text)));
+       data.add(ListTile(leading: Text(txtjbuku.text)));
+       data.add(ListTile(leading: Text(txtalamat.text))); 
+       data.add(ListTile(leading: Text(txttglpeminjam.text))); 
+      txttgllahir.clear();
+      txtnamapeminjam.clear();
+      txtalamat.clear();
+      txtjbuku.clear();
+      txttglpeminjam.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+               TextField(
+                controller: txtnamapeminjam,
+                decoration: InputDecoration(hintText: 'Nama Peminjam'),
+              ),
+              TextField(
+                controller: txttgllahir,
+                decoration: InputDecoration(hintText: 'Tanggal Lahir'),
+              ),
+              TextField(
+                controller: txtjbuku,
+                decoration: InputDecoration(hintText: 'Judul Buku'),
+              ),
+              TextField(
+                controller: txtalamat,
+                decoration: InputDecoration(hintText: 'Alamat'),
+              ),
+              TextField(
+                controller: txttglpeminjam,
+                decoration: InputDecoration(hintText: 'Tanggal Peminjam'),
+              ),
+              Divider(height: 5.0),
+              ElevatedButton(child: Text("Tambah"), onPressed: onTambah),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
+}
